@@ -1,0 +1,20 @@
+{
+    "name": "screen-turtle",
+    "version": "0.0.0",
+    "description": "A LOGO turtle for MakeCode",
+    "license": "MIT",
+    "dependencies": {
+        "game": "*"
+    },
+    "testDependencies": {
+        "device": "*"
+    },
+    "files": [
+        "README.md",
+        "turtle.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": false
+}
