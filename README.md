@@ -1,5 +1,4 @@
-# screen-turtle
-
+# screen-turtle [![Build Status](https://travis-ci.org/Microsoft/pxt-screen-turtle.svg?branch=master)](https://travis-ci.org/Microsoft/pxt-screen-turtle)
 
 ## License
 
