@@ -6,6 +6,7 @@ MIT
 
 ## Supported targets
 * for PXT/pxt-32
+* for PXT/pxt-arcade
 (The metadata above is needed for package search.)
 
 # Contributing
