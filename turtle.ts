@@ -22,6 +22,8 @@ namespace turtle {
 
     let _bkg: Image;
     let _sprite: Sprite;
+    let _x: number;
+    let _y: number;
     let _color: number = 1;
     let _direction: number = 90; // degrees
     let _penMode: TurtlePenMode = TurtlePenMode.Down;
@@ -31,9 +33,12 @@ namespace turtle {
             _bkg = scene.backgroundImage();
             _bkg.fill(turtle.backgroundColor);
             _sprite = sprites.create(turtle.turtleImage.clone());
+            _x = _sprite.x;
+            _y = _sprite.y;
         }
     }
 
+    const degToRad =  Math.PI / 180;
     /**
      * Moves the turtle for the given amount of pixels
      * @param steps number of steps, eg: 1
@@ -44,39 +49,39 @@ namespace turtle {
         init();
         if (!steps) return;
 
-        const drad = _direction / 180 * Math.PI;
+        const drad = _direction * degToRad;
         const dx = Math.cos(drad)
         const dy = - Math.sin(drad);
         const n = Math.abs(steps);
         const c = _penMode == TurtlePenMode.Down ? _color : 0;
 
-        let firstX = _sprite.x;
-        let firstY = _sprite.y;
+        let firstX = _x;
+        let firstY = _y;
 
         if (_delay > 1) {
             // animating move...
-            let oldX = _sprite.x;
-            let oldY = _sprite.y;
+            let oldX = _x;
+            let oldY = _y;
             for (let i = 0; i < n; ++i) {
                 // paint if pen down
                 if (_penMode == TurtlePenMode.Down || _penMode == TurtlePenMode.Erase)
-                    _bkg.drawLine(oldX, oldY, _sprite.x, _sprite.y, c)
+                    _bkg.drawLine(oldX, oldY, _x, _y, c)
                 // paint and update
-                setPosition(_sprite.x + dx, _sprite.y + dy);
+                setPosition(_x + dx, _y + dy);
                 // and wait
                 pause(_delay);
 
-                oldX = _sprite.x;
-                oldY = _sprite.y;
+                oldX = _x;
+                oldY = _y;
             }
         }
 
         // adjust final position
-        _sprite.x = Math.round(firstX + dx * steps);
-        _sprite.y = Math.round(firstY + dy * steps);
+        _sprite.x = _x = firstX + dx * steps;
+        _sprite.y = _y = firstY + dy * steps;
         // paint if pen down
         if (_penMode == TurtlePenMode.Down || _penMode == TurtlePenMode.Erase)
-            _bkg.drawLine(firstX, firstY, _sprite.x, _sprite.y, c)
+            _bkg.drawLine(firstX, firstY, _x, _y, c)
         // and wait
         pause(_delay);
     }
@@ -112,8 +117,10 @@ namespace turtle {
     //% weight=87
     export function setPosition(x: number, y: number): void {
         init();
-        _sprite.x = x % screen.width; if (_sprite.x < 0) _sprite.x += screen.width;
-        _sprite.y = y % screen.height; if (_sprite.y < 0) _sprite.y += screen.height;
+        _x = x % screen.width; if (_x < 0) _x += screen.width;
+        _y = x % screen.height; if (_y < 0) _y += screen.height;
+        _sprite.x = _x;
+        _sprite.y = _y;
     }
 
     /**
