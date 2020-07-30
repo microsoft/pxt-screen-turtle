@@ -1,6 +1,6 @@
 {
     "name": "screen-turtle",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "description": "A LOGO turtle for MakeCode",
     "license": "MIT",
     "dependencies": {
