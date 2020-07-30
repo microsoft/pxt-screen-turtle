@@ -1,4 +1,4 @@
-// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.0.16/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"0.1.0","target":"arcade","targetVersion":"1.0.16","repo":"microsoft/pxt-screen-turtle"}
+// meta={"simUrl":"https://trg-arcade.userpxt.io/v1.0.16/---simulator","cdnUrl":"https://pxt.azureedge.net","version":"0.0.4","target":"arcade","targetVersion":"1.0.16","repo":"microsoft/pxt-screen-turtle"}
 // total=1209195 new=7.52% cached=87.14% other=5.33%
 (function (ectx) {
 'use strict';
@@ -388,7 +388,7 @@ const pxsim_pxtrt = pxsim.pxtrt;
 const pxsim_numops = pxsim.numops;
 
 
-function _main___P29475(s) {
+function _main___P29728(s) {
 let r0 = s.r0, step = s.pc;
 s.pc = -1;
 
@@ -853,13 +853,13 @@ switch (step) {
     return leave(s, r0)
   default: oops()
 } } }
-_main___P29475.info = {"start":0,"length":0,"line":0,"column":0,"endLine":0,"endColumn":0,"fileName":"test.ts","functionName":"<main>","argumentNames":[]}
-_main___P29475.continuations = [  ]
+_main___P29728.info = {"start":0,"length":0,"line":0,"column":0,"endLine":0,"endColumn":0,"fileName":"test.ts","functionName":"<main>","argumentNames":[]}
+_main___P29728.continuations = [  ]
 
-function _main___P29475_mk(s) {
+function _main___P29728_mk(s) {
     checkStack(s.depth);
     return {
-        parent: s, fn: _main___P29475, depth: s.depth + 1,
+        parent: s, fn: _main___P29728, depth: s.depth + 1,
         pc: 0, retval: undefined, r0: undefined, overwrittenPC: false, lambdaArgs: null,
   tmp_0: undefined,
   tmp_1: undefined,
@@ -41460,5 +41460,5 @@ const sprites_StaticObstacle__C2146_VT = mkVTable({
 
 const breakpoints = setupDebugger(1, ["turtleImage___28579","_direction___28590","_sprite___28584","_bkg___28583","backgroundColor___28582","_x___28585","_y___28586","_penMode___28593","_color___28588","_delay___28595"])
 
-return _main___P29475
+return _main___P29728
 })
