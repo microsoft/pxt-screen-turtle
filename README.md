@@ -1,5 +1,5 @@
 ---
-LOGO Manual
+title: LOGO Manual
 ---
 
 # screen-turtle
