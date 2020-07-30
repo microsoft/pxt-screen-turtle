@@ -35,6 +35,7 @@ namespace turtle {
             _sprite = sprites.create(turtle.turtleImage.clone());
             _x = _sprite.x;
             _y = _sprite.y;
+            home()
         }
     }
 
@@ -50,8 +51,9 @@ namespace turtle {
         if (!steps) return;
 
         const drad = _direction * degToRad;
-        const dx = Math.cos(drad)
-        const dy = - Math.sin(drad);
+        const sn = Math.sign(steps)
+        const dx = Math.cos(drad) * sn
+        const dy = - Math.sin(drad) * sn
         const n = Math.abs(steps);
         const c = _penMode == TurtlePenMode.Down ? _color : 0;
 
