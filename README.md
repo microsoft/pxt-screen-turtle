@@ -15,7 +15,7 @@ This repository can be added as an **extension** in MakeCode.
 * click on **Extensions** under the gearwheel menu
 * search for **https://github.com/microsoft/pxt-screen-turtle** and import
 
-## Edit this project ![Build status badge](https://github.com/microsoft/pxt-screen-turtle/workflows/MakeCode/badge.svg)
+## Edit this project ![MakeCode Arcade Release](https://github.com/microsoft/pxt-screen-turtle/workflows/MakeCode%20Arcade%20Release/badge.svg)
 
 To edit this repository in MakeCode.
 
