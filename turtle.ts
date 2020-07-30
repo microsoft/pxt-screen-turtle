@@ -55,8 +55,8 @@ namespace turtle {
         const n = Math.abs(steps);
         const c = _penMode == TurtlePenMode.Down ? _color : 0;
 
-        let firstX = _x;
-        let firstY = _y;
+        const firstX = _x;
+        const firstY = _y;
 
         if (_delay > 1) {
             // animating move...
@@ -77,8 +77,10 @@ namespace turtle {
         }
 
         // adjust final position
-        _sprite.x = _x = firstX + dx * steps;
-        _sprite.y = _y = firstY + dy * steps;
+        _x = firstX + dx * n;
+        _y = firstY + dy * n;
+        _sprite.x = _x
+        _sprite.y = _y
         // paint if pen down
         if (_penMode == TurtlePenMode.Down || _penMode == TurtlePenMode.Erase)
             _bkg.drawLine(firstX, firstY, _x, _y, c)
@@ -188,9 +190,27 @@ namespace turtle {
         pause(_delay);
     }
 
+    /**
+     * Clears the drawings created by the turtle
+     */
     //% _blockId=turtleClearScreen block="clear screen"
     export function clearScreen() {
         _bkg.fill(turtle.backgroundColor);
         home()
+    }
+
+    /**
+     * Display a speech bubble with the text, for the given time
+     * @param text the text to say, eg: ":)"
+     * @param time time to keep text on
+     */
+    //% weight=60
+    //% blockId=turtlesay block="say %text||for %millis ms"
+    //% millis.shadow=timePicker
+    //% text.shadow=text
+    //% inlineInputMode=inline
+    export function say(text: any, timeOnScreen?: number, textColor = 15, textBoxColor = 1) {
+        init()
+        _sprite.say(text, timeOnScreen || 500, textColor, textBoxColor);
     }
 }
