@@ -106,19 +106,29 @@ namespace turtle {
         _direction = (_direction + degrees) % 360;
     }
 
+    //% blockId=turtlerightturn block="turn right %degrees"
+    export function rt(degrees : number): void{
+        turn(-degrees)
+    }
+
+    //% blockId=turtleleftturn block="turn left %degrees"
+    export function lt(degrees : number): void{
+        turn(degrees)
+    }
+
     /**
      * Sets the turtle position
-     * @param x the horizontal position from 0 (left) to 4 (right), eg: 2
-     * @param y the vertical position from 0 (top) to 4 (bottom), eg: 2
+     * @param x the horizontal position from 0 (left) to 160 (right), eg: 2
+     * @param y the vertical position from 0 (top) to 120 (bottom), eg: 2
      */
-    //% x.min=0 x.max=4
-    //% y.min=0 y.max=4
+    //% x.min=0 x.max=160
+    //% y.min=0 y.max=120
     //% blockId=turtleSetPosition block="set position x %x y %y"
     //% weight=87
     export function setPosition(x: number, y: number): void {
         init();
         _x = x % screen.width; if (_x < 0) _x += screen.width;
-        _y = x % screen.height; if (_y < 0) _y += screen.height;
+        _y = y % screen.height; if (_y < 0) _y += screen.height;
         _sprite.x = _x;
         _sprite.y = _y;
     }
@@ -140,7 +150,7 @@ namespace turtle {
     //% blockGap=8
     //% blockId=turtleHome block="home"
     export function home(): void {
-        setPosition(2, 2);
+        setPosition(80, 60);
         _direction = 90;
     }
 
@@ -148,7 +158,7 @@ namespace turtle {
      * Sets the pen color
      */
     //% blockGap=8
-    //% blockId=turtlesetpencolor block="set pen color to %color"
+    //% blockId=turtlesetpencolor block="set pen color to %color=colorindexpicker"
     export function setPenColor(color: number) {
         init();
         _color = color;
@@ -176,5 +186,11 @@ namespace turtle {
         init();        
         _bkg.drawImage(image, _sprite.left + ((_sprite.width - image.width) >> 1), _sprite.top + ((_sprite.height - image.height) >> 1));
         pause(_delay);
+    }
+
+    //% _blockId=turtleClearScreen block="clear screen"
+    export function clearScreen() {
+        _bkg.fill(turtle.backgroundColor);
+        home()
     }
 }
