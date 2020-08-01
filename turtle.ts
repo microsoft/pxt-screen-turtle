@@ -11,6 +11,9 @@ enum TurtlePenMode {
  */
 //% weight=100 color=#0f9c11 icon="\uf188"
 namespace turtle {
+    const DATA_KEY = "turtle"
+    const DEG_TO_RAD =  Math.PI / 180;
+
     export let turtleImage = img`
     . . . a . . .            
     . . a a a . .            
@@ -20,26 +23,31 @@ namespace turtle {
     `;       
     export let backgroundColor = 0xf;
 
-    let _bkg: Image;
+    class TurtleData {
+        x: number;
+        y: number;
+        color: number = 1;
+        direction: number = 90; // degrees
+        penMode: TurtlePenMode = TurtlePenMode.Down;
+        delay = 10;
+
+        constructor() {}
+    }
+
     let _sprite: Sprite;
-    let _x: number;
-    let _y: number;
-    let _color: number = 1;
-    let _direction: number = 90; // degrees
-    let _penMode: TurtlePenMode = TurtlePenMode.Down;
-    let _delay = 10;
+    let _bkg: Image;
     function init() {
         if (!_sprite) {
             _bkg = scene.backgroundImage();
             _bkg.fill(turtle.backgroundColor);
             _sprite = sprites.create(turtle.turtleImage.clone());
-            _x = _sprite.x;
-            _y = _sprite.y;
+            const data: TurtleData = _sprite.data[DATA_KEY] = new TurtleData()
+            data.x = _sprite.x;
+            data.y = _sprite.y;
             home()
         }
     }
 
-    const degToRad =  Math.PI / 180;
     /**
      * Moves the turtle for the given amount of pixels
      * @param steps number of steps, eg: 1
@@ -50,44 +58,45 @@ namespace turtle {
         init();
         if (!steps) return;
 
-        const drad = _direction * degToRad;
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        const drad = data.direction * DEG_TO_RAD;
         const sn = Math.sign(steps)
         const dx = Math.cos(drad) * sn
         const dy = - Math.sin(drad) * sn
         const n = Math.abs(steps);
-        const c = _penMode == TurtlePenMode.Down ? _color : 0;
+        const c = data.penMode == TurtlePenMode.Down ? data.color : 0;
 
-        const firstX = _x;
-        const firstY = _y;
+        const firstX = data.x;
+        const firstY = data.y;
 
-        if (_delay > 1) {
+        if (data.delay > 1) {
             // animating move...
-            let oldX = _x;
-            let oldY = _y;
+            let oldX = data.x;
+            let oldY = data.y;
             for (let i = 0; i < n; ++i) {
                 // paint if pen down
-                if (_penMode == TurtlePenMode.Down || _penMode == TurtlePenMode.Erase)
-                    _bkg.drawLine(oldX, oldY, _x, _y, c)
+                if (data.penMode == TurtlePenMode.Down || data.penMode == TurtlePenMode.Erase)
+                    _bkg.drawLine(oldX, oldY, data.x, data.y, c)
                 // paint and update
-                setPosition(_x + dx, _y + dy);
+                setPosition(data.x + dx, data.y + dy);
                 // and wait
-                pause(_delay);
+                pause(data.delay);
 
-                oldX = _x;
-                oldY = _y;
+                oldX = data.x;
+                oldY = data.y;
             }
         }
 
         // adjust final position
-        _x = firstX + dx * n;
-        _y = firstY + dy * n;
-        _sprite.x = _x
-        _sprite.y = _y
+        data.x = firstX + dx * n;
+        data.y = firstY + dy * n;
+        _sprite.x = data.x
+        _sprite.y = data.y
         // paint if pen down
-        if (_penMode == TurtlePenMode.Down || _penMode == TurtlePenMode.Erase)
-            _bkg.drawLine(firstX, firstY, _x, _y, c)
+        if (data.penMode == TurtlePenMode.Down || data.penMode == TurtlePenMode.Erase)
+            _bkg.drawLine(firstX, firstY, data.x, data.y, c)
         // and wait
-        pause(_delay);
+        pause(data.delay);
     }
 
     /**
@@ -107,7 +116,8 @@ namespace turtle {
     //% degrees.min=-180 degrees.max=180
     export function turn(degrees: number): void {
         init();
-        _direction = (_direction + degrees) % 360;
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        data.direction = (data.direction + degrees) % 360;
     }
 
     //% blockId=turtlerightturn block="turn right %degrees"
@@ -131,10 +141,11 @@ namespace turtle {
     //% weight=87
     export function setPosition(x: number, y: number): void {
         init();
-        _x = x % screen.width; if (_x < 0) _x += screen.width;
-        _y = y % screen.height; if (_y < 0) _y += screen.height;
-        _sprite.x = _x;
-        _sprite.y = _y;
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        data.x = x % screen.width; if (data.x < 0) data.x += screen.width;
+        data.y = y % screen.height; if (data.y < 0) data.y += screen.height;
+        _sprite.x = data.x;
+        _sprite.y = data.y;
     }
 
     /**
@@ -145,7 +156,8 @@ namespace turtle {
     //% weight=65
     export function pen(mode: TurtlePenMode): void {
         init();
-        _penMode = mode;
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        data.penMode = mode;
     }
 
     /**
@@ -155,7 +167,8 @@ namespace turtle {
     //% blockId=turtleHome block="home"
     export function home(): void {
         setPosition(80, 60);
-        _direction = 90;
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        data.direction = 90;
     }
 
     /**
@@ -165,7 +178,8 @@ namespace turtle {
     //% blockId=turtlesetpencolor block="set pen color to %color=colorindexpicker"
     export function setPenColor(color: number) {
         init();
-        _color = color;
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        data.color = color;
     }
 
     /**
@@ -178,7 +192,8 @@ namespace turtle {
     //% weight=10
     export function setSpeed(speed: number): void {
         init();
-        _delay = 100 - Math.clamp(1, 100, speed);
+        const data: TurtleData = _sprite.data[DATA_KEY]
+        data.delay = 100 - Math.clamp(1, 100, speed);
     }
 
     /**
@@ -187,9 +202,10 @@ namespace turtle {
      */
     //% _blockId=turtlestamp block="stamp %image=screen_image_picker"
     export function stamp(image: Image) {
-        init();        
+        init();      
+        const data: TurtleData = _sprite.data[DATA_KEY]
         _bkg.drawImage(image, _sprite.left + ((_sprite.width - image.width) >> 1), _sprite.top + ((_sprite.height - image.height) >> 1));
-        pause(_delay);
+        pause(data.delay);
     }
 
     /**
