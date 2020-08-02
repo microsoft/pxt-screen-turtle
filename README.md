@@ -15,17 +15,10 @@ This repository can be added as an **extension** in MakeCode.
 * click on **Extensions** under the gearwheel menu
 * search for **https://github.com/microsoft/pxt-screen-turtle** and import
 
-## Edit this project ![MakeCode Arcade Release](https://github.com/microsoft/pxt-screen-turtle/workflows/MakeCode%20Arcade%20Release/badge.svg)
-
-To edit this repository in MakeCode.
-
-* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/microsoft/pxt-screen-turtle** and click import
-
 ## Turtle functions
 
 The turtle has a position, a direction and a pen. All units are in pixels.
+You can also turn any sprite into a turtle by using ``from sprite``.
 
 ### Moves: forward and back
 
@@ -63,6 +56,14 @@ And change the pen color
 ```blocks
 turtle.setPenColor(4)
 ```
+
+## Edit this project ![MakeCode Arcade Release](https://github.com/microsoft/pxt-screen-turtle/workflows/MakeCode%20Arcade%20Release/badge.svg)
+
+To edit this repository in MakeCode.
+
+* open [https://arcade.makecode.com/](https://arcade.makecode.com/)
+* click on **Import** then click on **Import URL**
+* paste **https://github.com/microsoft/pxt-screen-turtle** and click import
 
 ## License
 
