@@ -66,11 +66,11 @@ class Turtle {
 
         const firstX = this.x;
         const firstY = this.y;
+        let oldX = firstX;
+        let oldY = firstY;
 
         if (this.delay > 1) {
             // animating move...
-            let oldX = this.x;
-            let oldY = this.y;
             for (let i = 0; i < n; ++i) {
                 // paint if pen down
                 if (this.penMode == TurtlePenMode.Down || this.penMode == TurtlePenMode.Erase)
@@ -86,10 +86,10 @@ class Turtle {
         }
 
         // adjust final position
-        this.setPosition(firstX + dx * n, firstY + dy * n)
+        this.setPosition(Math.round(firstX + dx * n), Math.round(firstY + dy * n))
         // paint if pen down
         if (this.penMode == TurtlePenMode.Down || this.penMode == TurtlePenMode.Erase)
-            this.bkg.drawLine(firstX, firstY, this.x, this.y, c)
+            this.bkg.drawLine(oldX, oldY, this.x, this.y, c)
         // and wait
         pause(this.delay);
     }
