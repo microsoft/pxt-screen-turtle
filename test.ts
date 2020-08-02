@@ -18,9 +18,9 @@ turtle.forward(30)
 pause(1000)
 turtle.pen(TurtlePenMode.Down)
 
-for(let i =0; i < 4; ++i) {
-    turtle.forward(40)
-    turtle.turn(90)
+for(let i =0; i < 6; ++i) {
+    turtle.forward(39)
+    turtle.turn(60)
 }
 
 const duck = sprites.create(sprites.builtin.dog0)
